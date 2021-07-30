@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Jekyll v4.1.1" />
+    <title>Cover Template · Bootstrap</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.5/examples/cover/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <script src="/static/js/libs/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/css-loader.css">
+    <script src="/static/js/libs/bootstrap.min.js"></script>
+    <script src="/static/js/libs/jquery.growl.js"></script>
+    <script src="/static/js/mainimage.js"></script>
+    <!-- Favicons -->
+  
+    <meta name="theme-color" content="#563d7c" />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .btn-file {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        background: red;
+        cursor: inherit;
+        display: block;
+      }
+      input[readonly] {
+        background-color: white !important;
+        cursor: text !important;
+      }
+     
+      .loader-default:after {
+          content: "";
+          position: fixed;
+          width: 48px;
+          height: 48px;
+          border: 8px solid #000000c9;
+          border-left-color: transparent;
+          border-radius: 50%;
+          top: calc(50% - 24px);
+          left: calc(50% - 24px);
+          animation: rotation 1s linear infinite;
+      }
+
+      /* body{
+    margin-top:20px;
+    background:#FAFAFA;
+} */
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+  .loader.is-active {
+      background-color: rgb(202 184 184);
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+  }
+    </style>
+    
+    <!-- Custom styles for this template -->
+    <link href="/static/css/cover.css" rel="stylesheet" />
+    <link href="/static/css/jquery.growl.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  </head>
+  <body class="text-center" >
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column ">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">Upload</h3>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">WS Face Recognition</h1>
+        <p style="color: #e4ff00;font-weight: bold;" id="result"></p>
+
+
+        <div class="container">
+
+            <form id="imageUploadForm" action="/upload" method="POST" enctype="multipart/form-data" >
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                              <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input type="file" name="file" accept="image/png, .jpeg, .jpg">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                                <select id="typeSearch" class="form-control">
+                                  <option value="1">KNN Search - Sequential</option>
+                                  <option value="2">KNN Search - Rtree</option>
+                                </select>
+                                <input type="submit" value="Procesar" class="btn btn-success btn-file"/>
+                                
+                            </div>
+                            <div>
+                              <input type="text" class="form-control" placeholder="Inserte el k deseado..." id="k">
+                              <input type="text" class="form-control" placeholder="Inserte el n deseado..." id="n">
+                            </div>
+                            <div class="card-block">
+                              <h6 class="m-b-20">Se parece a:</h6>
+                              <h7 class="text-center"><span id="ans"></span></h7>
+                             
+                          </div>
+
+                            <!-- <input type="file" class="btn btn-secondary" name="file" accept="image/png, .jpeg, .jpg" onchange="readURL(this);"/> -->
+                        </div> 
+                        <!-- <div class="col-6">
+                            <input type="submit" value="Cargar" class="btn btn-secondary"/>
+                        </div> -->
+                    </div>
+                </div>
+            </form>
+
+            <img
+            id="blah"
+            src="#"
+            alt="your image"
+            class="img-responsive center-block"
+            alt="Responsive image"
+          />
+        </div>
+      </main>
+
+
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>
+            <!-- Cover template for
+            <a href="https://getbootstrap.com/">Bootstrap</a>, by
+            <a href="https://twitter.com/mdo">@mdo</a>. -->
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
